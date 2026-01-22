@@ -1,6 +1,7 @@
 {
   "name": "softskill-site",
   "compatibility_date": "2026-01-22",
+  "main": "worker/index.js",
   "assets": {
     "directory": "."
   }

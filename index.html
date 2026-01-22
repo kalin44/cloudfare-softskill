@@ -232,6 +232,7 @@
           </label>
 
           <button class="btn" type="submit">Send</button>
+          <div id="form-status" class="small" aria-live="polite" style="margin-top:8px"></div>
         </form>
       </div>
     </section>
@@ -247,6 +248,43 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('form-status');
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        status.textContent = '';
+
+        var submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
+        try {
+          // Use FormSubmit AJAX endpoint to avoid redirect
+          var ajaxUrl = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+          var formData = new FormData(form);
+
+          var res = await fetch(ajaxUrl, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (res.ok) {
+            status.textContent = 'Message sent — thank you!';
+            form.reset();
+          } else {
+            var text = await res.text().catch(() => '');
+            status.textContent = 'Error sending message' + (text ? ': ' + text : '');
+          }
+        } catch (err) {
+          status.textContent = 'Network error — please try again later.';
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      });
+    })();
   </script>
 </body>
 </html>

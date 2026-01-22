@@ -200,20 +200,18 @@
             <div class="mini">
               <div class="mini__label">Email</div>
               <a class="mini__value" href="mailto:info@softskill.ro">info@softskill.ro</a>
-              <div class="mini__hint">Uses your ImprovMX alias destination inbox.</div>
             </div>
 
             <div class="mini">
               <div class="mini__label">LinkedIn</div>
-              <a class="mini__value" href="#" target="_blank" rel="noopener">Add your company link</a>
-              <div class="mini__hint">Replace this with your LinkedIn URL.</div>
+              <a class="mini__value" href="https://www.linkedin.com/company/softskill-technology" target="_blank" rel="noopener">softskill-technology</a>
+              <div class="mini__hint">Company LinkedIn page</div>
             </div>
           </div>
         </div>
 
-        <form class="form card" method="POST" action="#" onsubmit="return false;">
+        <form id="contact-form" class="form card" method="GET" action="mailto:info@softskill.ro">
           <h3>Quick message</h3>
-          <p class="small">This is a static form UI. If you want it to actually send emails, tell me and I’ll wire it up with a free form backend.</p>
 
           <label>
             Name
@@ -246,6 +244,24 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = (form.querySelector('[name="name"]') || {}).value || '';
+        var email = (form.querySelector('[name="email"]') || {}).value || '';
+        var message = (form.querySelector('[name="message"]') || {}).value || '';
+
+        var subject = 'Website contact from ' + (name || email || 'visitor');
+        var body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
+
+        var mailto = 'mailto:info@softskill.ro?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
+      });
+    })();
   </script>
 </body>
 </html>

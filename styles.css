@@ -292,6 +292,25 @@ input:focus, textarea:focus{
 }
 .small{color: var(--muted); font-size: 13px; margin: 8px 0 0}
 
+/* Consent checkbox row */
+.form__consent{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.form__consent input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin:0;
+  border-radius:4px;
+  border:1px solid var(--line);
+  background:transparent;
+}
+.form__consent span{line-height:1}
+
 .footer{
   padding: 26px 0 40px;
   /* Smooth gradient fade instead of hard border */

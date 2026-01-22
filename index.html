@@ -210,8 +210,11 @@
           </div>
         </div>
 
-        <form id="contact-form" class="form card" method="POST" action="/api/contact">
+        <form id="contact-form" class="form card" method="POST" action="https://formsubmit.co/info@softskill.ro">
           <h3>Quick message</h3>
+
+          <input type="hidden" name="_subject" value="Website contact from Softskill site">
+          <input type="hidden" name="_captcha" value="false">
 
           <label>
             Name
@@ -228,10 +231,7 @@
             <textarea name="message" rows="5" placeholder="What do you need help with?"></textarea>
           </label>
 
-          <div class="form__actions">
-            <button class="btn" type="submit">Send</button>
-            <span id="form-status" class="small" aria-live="polite"></span>
-          </div>
+          <button class="btn" type="submit">Send</button>
         </form>
       </div>
     </section>
@@ -247,39 +247,6 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    (function () {
-      var form = document.getElementById('contact-form');
-      var status = document.getElementById('form-status');
-      if (!form) return;
-
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        status.textContent = '';
-
-        var name = (form.querySelector('[name="name"]') || {}).value || '';
-        var email = (form.querySelector('[name="email"]') || {}).value || '';
-        var message = (form.querySelector('[name="message"]') || {}).value || '';
-
-        try {
-          var res = await fetch(form.action, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, email: email, message: message })
-          });
-
-          if (res.ok) {
-            status.textContent = 'Message sent — thank you!';
-            form.reset();
-          } else {
-            var j = await res.json().catch(() => ({}));
-            status.textContent = 'Error sending message' + (j && j.error ? ': ' + j.error : '');
-          }
-        } catch (err) {
-          status.textContent = 'Network error — please try again later.';
-        }
-      });
-    })();
   </script>
 </body>
 </html>

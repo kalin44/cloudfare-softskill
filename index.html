@@ -226,6 +226,11 @@
             <textarea name="message" rows="5" placeholder="What do you need help with?"></textarea>
           </label>
 
+          <label class="form__consent" style="display:flex;align-items:flex-start;gap:8px;margin-top:8px;">
+            <input type="checkbox" name="consent" id="consent" style="margin-top:4px;" />
+            <span>☐ I agree to the processing of my personal data in accordance with the Privacy Policy.</span>
+          </label>
+
           <button class="btn" type="submit">Send</button>
           <div id="form-status" class="small" aria-live="polite" style="margin-top:8px"></div>
         </form>
@@ -255,6 +260,15 @@
 
         var submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) submitBtn.disabled = true;
+
+        // Require consent checkbox
+        var consent = form.querySelector('[name="consent"]');
+        if (consent && !consent.checked) {
+          status.textContent = 'Please agree to the Privacy Policy before sending.';
+          if (submitBtn) submitBtn.disabled = false;
+          consent.focus();
+          return;
+        }
 
         try {
           // Use FormSubmit AJAX endpoint to avoid redirect

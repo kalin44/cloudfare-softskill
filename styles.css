@@ -330,3 +330,67 @@ input:focus, textarea:focus{
   filter: blur(18px);
   pointer-events:none;
 }
+
+/* Service page styles */
+.hero--service {
+  position: relative;
+  padding: 60px 0;
+  background: linear-gradient(135deg, rgba(156,110,255,.08) 0%, rgba(7,9,20,.95) 100%);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.service-content h2 {
+  margin: 32px 0 16px;
+  font-size: 24px;
+}
+
+.service-content h2:first-child {
+  margin-top: 0;
+}
+
+.service-content p {
+  margin: 0 0 16px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.service-content ul.check {
+  margin: 16px 0 32px;
+  padding-left: 24px;
+}
+
+.service-content ul.check li {
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.service-content .cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 620px) {
+  .hero--service {
+    padding: 40px 0;
+  }
+  
+  .service-content h2 {
+    font-size: 20px;
+  }
+  
+  .service-content .cta {
+    flex-direction: column;
+  }
+}
